@@ -84,7 +84,7 @@ class C4QualityFilter(BaseFilter):
         self.filter_curly_bracket = filter_curly_bracket
         self.filter_policy = filter_policy
 
-    def filter(self, doc: Document) -> bool | tuple[bool, str]:
+    def filter(self, doc: Document) -> bool:
         from nltk.tokenize import sent_tokenize
 
         lines = (
@@ -167,7 +167,7 @@ class C4ParagraphFilter(BaseFilter):
             return False
         return True
 
-    def filter(self, doc: Document) -> bool | tuple[bool, str]:
+    def filter(self, doc: Document) -> bool:
         if not self.paragraph_filter(doc.text):
             return False, f"< {self.min_paragraphs} paragraphs"
         return True
@@ -269,7 +269,7 @@ class C4BadWordsFilter(BaseFilter):
             )
         return self._badwords_regex[lang]
 
-    def filter(self, doc: Document) -> bool | tuple[bool, str]:
+    def filter(self, doc: Document) -> bool:
         lang: str = doc.metadata.get("language", self.default_language)
         badwords_regex = self._get_badwords(lang)
         if badwords_regex is None:

@@ -28,7 +28,7 @@ class PipelineStepWithTokenizer(PipelineStep, ABC):
         super().__init__()
         self.tokenizer_name_or_path = None
         self.eos_token = None
-        self._tokenizer: "Tokenizer" | None = None
+        self._tokenizer: "Tokenizer"  = None
         self._post_processor = None
         self._token_size = None
         self._token_format = None

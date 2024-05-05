@@ -40,8 +40,8 @@ class TokenizedFile:
         filename: str,
         save_index: bool = True,
         save_loss_metadata: bool = False,
-        upload_block_size: int | None = None,
-        tokenizer_name_or_path: str | None = None,
+        upload_block_size: int  = None,
+        tokenizer_name_or_path: str  = None,
         save_final_metadata: bool = False,
         token_size: int = 2,
     ):
@@ -58,7 +58,7 @@ class TokenizedFile:
         self.save_final_metadata = save_final_metadata
 
         self.tokens_file = self.output_folder.open(self.filename, mode="wb", block_size=upload_block_size)
-        self.loss_file: DataFolderLike | None = None
+        self.loss_file: DataFolderLike  = None
         if self.save_loss_metadata:
             self.loss_file = self.output_folder.open(f"{self.filename}.loss", mode="wb", block_size=upload_block_size)
 
@@ -124,12 +124,12 @@ class TokenizedFile:
         if self.save_loss_metadata:
             self.loss_file.write(l_bytes)
 
-    def write(self, tokens: list[int], loss_values: np.ndarray | None):
+    def write(self, tokens: list[int], loss_values: np.ndarray ):
         """Write tokens and loss values to the files.
 
         Args:
             tokens (list[int]): the tokens to write
-            loss_values (np.ndarray | None): optional loss values to write
+            loss_values (np.ndarray ): optional loss values to write
         """
         # get the bytes
         self.write_bytes(struct.pack(f"<%s{self.token_format}" % len(tokens), *tokens))
@@ -219,7 +219,7 @@ class TokenizedFile:
         """Save the final metadata file with the tokenizer name and the token count.
 
         Args:
-            tokenizer_name (str | None): the tokenizer name to save (Default value = None)
+            tokenizer_name (str ): the tokenizer name to save (Default value = None)
             token_count (int): the token count to save (Default value = -1)
             filename: str:  (Default value = None)
         """
@@ -257,7 +257,7 @@ class DocumentTokenizer(PipelineStepWithTokenizer):
 
     Args:
         output_folder (DataFolderLike): the output folder where to save the tokenized documents
-        local_working_dir (str | None): a local working directory to use for temporary files (before internal shuffling)
+        local_working_dir (str ): a local working directory to use for temporary files (before internal shuffling)
             if None we shuffle in output_folder (can be very slow if it's a remote location)
         save_filename (str): the filename to use for the final tokenized files (default: None – use the default filename)
         tokenizer_name_or_path (str): the name or path of the tokenizer to use, from the HuggingFace tokenizers library (default: "gpt2")
@@ -267,7 +267,7 @@ class DocumentTokenizer(PipelineStepWithTokenizer):
         batch_size (int): batch size for tokenization (default: 1000)
         seed (int): the seed to use for shuffling
         save_final_metadata (bool): whether to save the final metadata (default: True)
-        upload_block_size (int | None): the fsspec size of the upload block for remote filesystems (S3)
+        upload_block_size (int ): the fsspec size of the upload block for remote filesystems (S3)
             You can set this if your s3 uploads are failing because of "Part number must be an integer between 1 and 10000, inclusive".
             Example: 20 * 2**20 (20MB)
     """
@@ -278,7 +278,7 @@ class DocumentTokenizer(PipelineStepWithTokenizer):
     def __init__(
         self,
         output_folder: DataFolderLike,
-        local_working_dir: DataFolderLike | None = None,
+        local_working_dir: DataFolderLike  = None,
         save_filename: str = None,  # if defined, the final output filename will be this
         tokenizer_name_or_path: str = "gpt2",  # tokenizer to use, from HF or a local
         eos_token: str = "<|endoftext|>",  # whether to add the EOS token after each document
@@ -288,7 +288,7 @@ class DocumentTokenizer(PipelineStepWithTokenizer):
         max_tokens_per_file: int = None,  # max tokens per file to get more (smaller) shuffled output files
         seed: int = None,
         save_final_metadata: bool = True,
-        upload_block_size: int | None = None,
+        upload_block_size: int  = None,
         # you can set this if your s3 uploads are failing because of "Part
         # number must be an integer between 1 and 10000, inclusive". Example: 20 * 2**20 (20MB)
     ):

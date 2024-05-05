@@ -90,7 +90,7 @@ class URLFilter(BaseFilter):
         self.soft_banned_words = get_list(ASSETS_PATH, "soft_banned_words.txt", self.soft_banned_words)
         self._downloaded = True
 
-    def filter(self, document: Document) -> bool | tuple[bool, str]:
+    def filter(self, document: Document) -> bool:
         self.download_data()
         url = document.metadata.get("url")
 

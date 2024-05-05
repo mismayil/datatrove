@@ -118,7 +118,7 @@ class SentenceDedupSignature(PipelineStep):
                 if right_idx >= len(signatures):
                     break
 
-    def get_hashes(self, doc: Document, doc_idx: int) -> list[None] | list[tuple[int, int, int]]:
+    def get_hashes(self, doc: Document, doc_idx: int) -> list[None]:
         from nltk import ngrams
         from nltk.tokenize import sent_tokenize
 
@@ -250,7 +250,7 @@ class SentenceFindDedups(PipelineStep):
 
             packer = struct.Struct("<IH")
 
-            last: HashSig | None = None
+            last: HashSig  = None
             while pq:
                 v: HashSig = heapq.heappop(pq)
                 if (

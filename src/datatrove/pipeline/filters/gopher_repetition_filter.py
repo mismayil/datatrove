@@ -74,10 +74,10 @@ class GopherRepetitionFilter(BaseFilter):
 
     def __init__(
         self,
-        dup_line_frac: float | None = 0.3,
-        dup_para_frac: float | None = 0.3,
-        dup_line_char_frac: float | None = 0.2,
-        dup_para_char_frac: float | None = 0.2,
+        dup_line_frac: float  = 0.3,
+        dup_para_frac: float  = 0.3,
+        dup_line_char_frac: float  = 0.2,
+        dup_para_char_frac: float  = 0.2,
         top_n_grams: tuple[tuple[int, float]] = ((2, 0.2), (3, 0.18), (4, 0.16)),
         dup_n_grams: tuple[tuple[int, float]] = ((5, 0.15), (6, 0.14), (7, 0.13), (8, 0.12), (9, 0.11), (10, 0.10)),
         exclusion_writer: DiskWriter = None,
@@ -104,7 +104,7 @@ class GopherRepetitionFilter(BaseFilter):
         self.paragraph_exp = re.compile(r"\n{2,}")
         self._line_splitter = re.compile("\n+")
 
-    def filter(self, doc: Document) -> bool | tuple[bool, str]:
+    def filter(self, doc: Document) -> bool:
         from nltk.tokenize import word_tokenize
 
         text = doc.text

@@ -43,7 +43,7 @@ class ParquetReader(BaseDiskReader):
         id_key: str = "id",
         default_metadata: dict = None,
         recursive: bool = True,
-        glob_pattern: str | None = None,
+        glob_pattern: str  = None,
         shuffle_files: bool = False,
     ):
         super().__init__(

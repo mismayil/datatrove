@@ -25,7 +25,7 @@ class FineWebQualityFilter(BaseFilter):
         self.char_duplicates_ratio = char_duplicates_ratio
         self.new_line_ratio = new_line_ratio
 
-    def filter(self, doc) -> bool | tuple[bool, str]:
+    def filter(self, doc) -> bool:
         from nltk import word_tokenize
 
         stop_chars = (".", "'", '"', "!", "?")

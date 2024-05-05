@@ -27,11 +27,11 @@ class PipelineExecutor(ABC):
     @abstractmethod
     def __init__(
         self,
-        pipeline: list[PipelineStep | Callable],
+        pipeline: list[PipelineStep],
         logging_dir: DataFolderLike = None,
         skip_completed: bool = True,
     ):
-        self.pipeline: list[PipelineStep | Callable] = pipeline
+        self.pipeline: list[PipelineStep] = pipeline
         self.logging_dir = get_datafolder(logging_dir if logging_dir else f"logs/{get_timestamp()}_{get_random_str()}")
         self.skip_completed = skip_completed
 

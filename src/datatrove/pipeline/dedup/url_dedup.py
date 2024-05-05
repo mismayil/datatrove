@@ -34,8 +34,8 @@ class UrlDedupConfig:
             The document priority must be in range [1, 65535]
     """
 
-    url_normalizer: Callable[[str], str] | None = None
-    document_priority: Callable[[Document], int] | None = None
+    url_normalizer: Callable[[str], str]  = None
+    document_priority: Callable[[Document], int]  = None
 
 
 DEFAULT_URL_DEDUP_CONFIG = UrlDedupConfig()
@@ -132,7 +132,7 @@ class UrlDedupSignature(PipelineStep):
                 if right_idx >= len(signatures):
                     break
 
-    def get_hashes(self, doc: Document, doc_idx: int) -> list[None] | list[tuple[int, int, int]]:
+    def get_hashes(self, doc: Document, doc_idx: int) -> list[None]:
         normalized_url: str = (
             self.config.url_normalizer(doc.metadata["url"]) if self.config.url_normalizer else doc.metadata["url"]
         )
@@ -260,7 +260,7 @@ class UrlFindDedups(PipelineStep):
             logger.info("PQ initialized.")
 
             output_mg = self.output_folder.get_output_file_manager(mode="wb")
-            last: HashSig | None = None
+            last: HashSig  = None
             packer = struct.Struct("<I")
             while pq:
                 v: HashSig = heapq.heappop(pq)

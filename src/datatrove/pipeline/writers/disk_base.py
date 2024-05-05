@@ -29,7 +29,7 @@ class DiskWriter(PipelineStep, ABC):
         self,
         output_folder: DataFolderLike,
         output_filename: str = None,
-        compression: str | None = "infer",
+        compression: str  = "infer",
         adapter: Callable = None,
         mode: str = "wt",
         expand_metadata: bool = False,
@@ -73,7 +73,7 @@ class DiskWriter(PipelineStep, ABC):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
 
-    def _get_output_filename(self, document: Document, rank: int | str = 0, **kwargs) -> str:
+    def _get_output_filename(self, document: Document, rank: int = 0, **kwargs) -> str:
         """
             Get the output path for a given document, based on any possible tag replacement.
             Example filename with `rank` tag: "${rank}.jsonl.gz"

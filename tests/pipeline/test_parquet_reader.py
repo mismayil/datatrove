@@ -26,7 +26,7 @@ class TestParquetReader(unittest.TestCase):
         pa_table = pa.table({"text": ["good", "bad", "equisite"], "id": [2, 3, 4], "text_length": [4, 3, 8]})
         pq.write_table(pa_table, self.parquet_file)
 
-    def check_same_data(self, documents, check_metadata=True, limit: int | None = None, skip: int = 0):
+    def check_same_data(self, documents, check_metadata=True, limit: int  = None, skip: int = 0):
         rows = pq.read_table(self.parquet_file).to_pylist()
         if skip:
             rows = rows[skip:]

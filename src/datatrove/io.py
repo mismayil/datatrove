@@ -1,6 +1,6 @@
 import os.path
 from glob import has_magic
-from typing import IO, Callable, TypeAlias
+from typing import IO, Callable, Union
 
 from fsspec import AbstractFileSystem
 from fsspec import open as fsspec_open
@@ -22,7 +22,7 @@ class OutputFileManager:
         compression: the compression to use
     """
 
-    def __init__(self, fs, mode: str = "wt", compression: str | None = "infer"):
+    def __init__(self, fs, mode: str = "wt", compression: str = "infer"):
         self.fs = fs
         self.mode = mode
         self.compression = compression
@@ -99,7 +99,7 @@ class DataFolder(DirFileSystem):
     def __init__(
         self,
         path: str,
-        fs: AbstractFileSystem | None = None,
+        fs: AbstractFileSystem = None,
         auto_mkdir: bool = True,
         **storage_options,
     ):
@@ -118,7 +118,7 @@ class DataFolder(DirFileSystem):
         self,
         subdirectory: str = "",
         recursive: bool = True,
-        glob_pattern: str | None = None,
+        glob_pattern: str = None,
         include_directories: bool = False,
     ) -> list[str]:
         """
@@ -126,7 +126,7 @@ class DataFolder(DirFileSystem):
         glob_pattern is given, it will only return files that match the pattern, which can be used to match a given
         extension, for example `*.myext`. Be careful with subdirectories when using glob (use ** if you want to match
         any subpath). Args: subdirectory: str:  (Default value = "") recursive: bool:  (Default value = True)
-        glob_pattern: str | None:  (Default value = None)
+        glob_pattern: str :  (Default value = None)
 
         Returns: a list of file paths, relative to `self.path`
 
@@ -171,7 +171,7 @@ class DataFolder(DirFileSystem):
         """
         return self.list_files(**kwargs)[rank::world_size]
 
-    def resolve_paths(self, paths) -> list[str] | str:
+    def resolve_paths(self, paths) -> list[str]:
         """
             Transform  a list of relative paths into a list of complete paths (including fs protocol and base path)
         Args:
@@ -234,7 +234,7 @@ class DataFolder(DirFileSystem):
         return isinstance(self.fs, LocalFileSystem)
 
 
-def get_datafolder(data: DataFolder | str | tuple[str, dict] | tuple[str, AbstractFileSystem]) -> DataFolder:
+def get_datafolder(data) -> DataFolder:
     """
     `DataFolder` factory.
     Possible input combinations:
@@ -269,7 +269,7 @@ def get_datafolder(data: DataFolder | str | tuple[str, dict] | tuple[str, Abstra
     )
 
 
-def open_file(file: IO | str, mode="rt", **kwargs):
+def open_file(file: IO, mode="rt", **kwargs):
     """Wrapper around fsspec.open to handle both file-like objects and string paths
 
     Args:
@@ -359,4 +359,4 @@ def cached_asset_path_or_download(
     return local_path
 
 
-DataFolderLike: TypeAlias = str | tuple[str, dict] | DataFolder
+DataFolderLike = Union[str, tuple[str, dict], DataFolder]

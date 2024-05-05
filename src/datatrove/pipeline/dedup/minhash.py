@@ -383,7 +383,7 @@ class MinhashDedupBuckets(PipelineStep):
                 )
 
             with self.output_folder.open(f"{bucket:05d}_{bucket_worker:02d}.dups", mode="wb") as out_f:
-                last: HashSig | None = None
+                last: HashSig  = None
                 while pq:
                     v: HashSig = heapq.heappop(pq)
                     assert last is None or v >= last, f"Sig queue sort error. {v=} < {last=}"
@@ -591,7 +591,7 @@ class MinhashBuildIndex(PipelineStep):
         # writes all the sigs for the entire bucket, sequentially
         out_f = self.output_folder.open(f"bucket_{bucket:03d}/{self.index_name}.minhash.index", mode="wb")
 
-        last: HashSig | None = None
+        last: HashSig  = None
         with self.track_time():
             while pq:
                 v: HashSig = heapq.heappop(pq)

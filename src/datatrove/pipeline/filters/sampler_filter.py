@@ -15,7 +15,7 @@ class SamplerFilter(BaseFilter):
 
     def __init__(
         self,
-        rate: float | None = 0.5,
+        rate: float  = 0.5,
         seed: int = None,
         exclusion_writer: DiskWriter = None,  # rate to KEEP
     ):
@@ -24,5 +24,5 @@ class SamplerFilter(BaseFilter):
         self.rate = rate
         self.uniform = default_rng(seed).uniform
 
-    def filter(self, doc: Document) -> bool | tuple[bool, str]:
+    def filter(self, doc: Document) -> bool:
         return self.uniform() < self.rate

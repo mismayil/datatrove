@@ -36,7 +36,7 @@ class WarcReader(BaseDiskReader):
     def __init__(
         self,
         data_folder: DataFolderLike,
-        compression: Literal["infer", "gzip", "zstd"] | None = "infer",
+        compression: Literal["infer", "gzip", "zstd"]  = "infer",
         limit: int = -1,
         skip: int = 0,
         progress: bool = False,
@@ -45,7 +45,7 @@ class WarcReader(BaseDiskReader):
         id_key: str = "id",
         default_metadata: dict = None,
         recursive: bool = True,
-        glob_pattern: str | None = None,
+        glob_pattern: str  = None,
         shuffle_files: bool = False,
     ):
         self.compression = compression
@@ -78,7 +78,7 @@ class WarcReader(BaseDiskReader):
                 yield document
 
 
-def process_record(record: "ArcWarcRecord") -> dict | None:
+def process_record(record: "ArcWarcRecord") -> dict :
     """Process a WARC record to extract the html and metadata (id, url, date)."""
     import cchardet
     import magic

@@ -59,7 +59,7 @@ class BaseReader(PipelineStep):
         self._empty_warning = False
         self.default_metadata = default_metadata
 
-    def _default_adapter(self, data: dict, path: str, id_in_file: int | str):
+    def _default_adapter(self, data: dict, path: str, id_in_file: int):
         """
         The default data adapter to adapt input data into the datatrove Document format
 
@@ -78,7 +78,7 @@ class BaseReader(PipelineStep):
             "metadata": data.pop("metadata", {}) | data,  # remaining data goes into metadata
         }
 
-    def get_document_from_dict(self, data: dict, source_file: str, id_in_file: int | str):
+    def get_document_from_dict(self, data: dict, source_file: str, id_in_file: int):
         """
         Applies the adapter to each sample, instantiates a Document object and adds `default_metadata`.
         Args:
@@ -139,7 +139,7 @@ class BaseDiskReader(BaseReader):
         id_key: str = "id",
         default_metadata: dict = None,
         recursive: bool = True,
-        glob_pattern: str | None = None,
+        glob_pattern: str  = None,
         shuffle_files: bool = False,
     ):
         """

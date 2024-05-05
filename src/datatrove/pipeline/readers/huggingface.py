@@ -32,7 +32,7 @@ class HuggingFaceDatasetReader(BaseReader):
     def __init__(
         self,
         dataset: str,
-        dataset_options: dict | None = None,
+        dataset_options: dict = None,
         limit: int = -1,
         skip: int = 0,
         batch_size: int = 1000,
@@ -47,7 +47,7 @@ class HuggingFaceDatasetReader(BaseReader):
         self.dataset_options = dataset_options
         self.batch_size = batch_size
 
-    def get_document_from_dict(self, data: dict, source: str, id_in_file: int | str):
+    def get_document_from_dict(self, data: dict, source: str, id_in_file: int):
         document = super().get_document_from_dict(data, source, id_in_file)
         if document:
             document.metadata.setdefault("dataset", source)

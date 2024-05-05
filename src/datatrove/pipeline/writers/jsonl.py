@@ -22,7 +22,7 @@ class JsonlWriter(DiskWriter):
         self,
         output_folder: DataFolderLike,
         output_filename: str = None,
-        compression: str | None = "gzip",
+        compression: str  = "gzip",
         adapter: Callable = None,
     ):
         super().__init__(output_folder, output_filename=output_filename, compression=compression, adapter=adapter)

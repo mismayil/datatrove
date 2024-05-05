@@ -126,7 +126,7 @@ class Stats:
 
 
 class PipelineStats:
-    def __init__(self, stats: list[Stats | Callable] = None):
+    def __init__(self, stats: list[Stats] = None):
         self.stats: list[Stats] = stats if stats else []
         if self.stats and not isinstance(self.stats[0], Stats):
             self.stats: list[Stats] = [

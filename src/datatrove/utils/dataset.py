@@ -30,7 +30,7 @@ if is_torch_available():
             file_path: str,
             seq_len: int,
             token_size: int = 2,
-            max_tokens: int | None = None,
+            max_tokens: int  = None,
         ):
             self.file_path: str = file_path
             self.seq_len = seq_len
@@ -86,7 +86,7 @@ if is_torch_available():
             filename_pattern: Union[Pattern, str] = None,
             recursive: bool = True,
             token_size: int = 2,
-            max_tokens: int | None = None,
+            max_tokens: int  = None,
             shuffle: bool = False,
             seed: int = 42,
         ):

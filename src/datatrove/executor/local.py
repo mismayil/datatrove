@@ -34,7 +34,7 @@ class LocalPipelineExecutor(PipelineExecutor):
 
     def __init__(
         self,
-        pipeline: list[PipelineStep | Callable],
+        pipeline: list[PipelineStep],
         tasks: int = 1,
         workers: int = -1,
         logging_dir: DataFolderLike = None,

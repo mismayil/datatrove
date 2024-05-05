@@ -29,7 +29,7 @@ class BaseFilter(PipelineStep, ABC):
         self.exclusion_writer = exclusion_writer
 
     @abstractmethod
-    def filter(self, doc: Document) -> bool | Tuple[bool, str]:
+    def filter(self, doc: Document) -> bool:
         """Filter modules main method.
         Returns true if a sample should be KEPT, false if it should be REMOVED.
 

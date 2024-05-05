@@ -32,7 +32,7 @@ class CsvReader(BaseDiskReader):
     def __init__(
         self,
         data_folder: DataFolderLike,
-        compression: Literal["infer", "gzip", "zstd"] | None = "infer",
+        compression: Literal["infer", "gzip", "zstd"]  = "infer",
         limit: int = -1,
         skip: int = 0,
         progress: bool = False,
@@ -41,7 +41,7 @@ class CsvReader(BaseDiskReader):
         id_key: str = "id",
         default_metadata: dict = None,
         recursive: bool = True,
-        glob_pattern: str | None = None,
+        glob_pattern: str  = None,
         shuffle_files: bool = False,
     ):
         super().__init__(

@@ -41,10 +41,10 @@ class FastTextClassifierFilter(BaseFilter):
     def __init__(
         self,
         model_url: str,
-        keep_labels: Tuple[str, float] | list[Tuple[str, float]] | None = None,
-        remove_labels: Tuple[str, float] | list[Tuple[str, float]] | None = None,
+        keep_labels: Tuple[str, float]  = None,
+        remove_labels: Tuple[str, float]  = None,
         save_labels_in_metadata: bool = True,
-        exclusion_writer: DiskWriter | None = None,
+        exclusion_writer: DiskWriter  = None,
         newline_replacement="",
         filter_mode: str = SPLIT_TEXT_DOCUMENTS,
     ):

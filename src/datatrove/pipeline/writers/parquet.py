@@ -14,7 +14,7 @@ class ParquetWriter(DiskWriter):
         self,
         output_folder: DataFolderLike,
         output_filename: str = None,
-        compression: str | None = None,
+        compression: str  = None,
         adapter: Callable = None,
         batch_size: int = 1000,
         expand_metadata: bool = False,
